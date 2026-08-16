@@ -1,5 +1,7 @@
-
 # Autonomous AI Agent for Intelligent Web Application Testing
+### Developed by:
+#### Loknaath P (212223240080)
+#### Lokhnath J (212223240079)
 
 Modern, research-driven platform that converts a natural-language testing instruction and a target URL into a reproducible, evidence-backed test run. The system integrates multi-agent planning, hybrid perception, robust browser automation, selector self-healing, independent verification, and structured report generation.
 
@@ -130,5 +132,5 @@ This repository uses an open-source friendly license (see `LICENSE` file). If yo
 
 ---
 
-If you want, I can now: (1) generate an updated set of sample reports, (2) add CI configuration for tests, or (3) produce a short README summary for a project homepage. Which would you like next?
+
 
