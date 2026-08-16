@@ -5,7 +5,7 @@
 
 
 
-
+## Aim
 Modern, research-driven platform that converts a natural-language testing instruction and a target URL into a reproducible, evidence-backed test run. The system integrates multi-agent planning, hybrid perception, robust browser automation, selector self-healing, independent verification, and structured report generation.
 
 Key outcomes: deterministic, instruction-specific reports; reproducible evidence artifacts; and a developer-friendly dashboard for experiments.
