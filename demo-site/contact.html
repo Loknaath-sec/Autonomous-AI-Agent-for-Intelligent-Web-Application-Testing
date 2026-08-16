@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact</title>
+    <style>body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; } nav { display:flex; justify-content:space-between; padding:20px 40px; background:#0f172a; color:white; } nav a { color:white; margin:0 10px; text-decoration:none; } .container { max-width: 700px; margin: 40px auto; background: white; border-radius: 12px; padding: 30px; } form { display:grid; gap:12px; } input, textarea { padding:10px; border:1px solid #cbd5e1; border-radius:8px; } .button { background:#06b6d4; color:black; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; } </style>
+  </head>
+  <body>
+    <nav>
+      <div><strong>DemoStore</strong></div>
+      <div><a href="index.html">Home</a><a href="products.html">Products</a><a href="login.html">Login</a></div>
+    </nav>
+    <div class="container">
+      <h1>Contact us</h1>
+      <form>
+        <label>
+          <div>Name</div>
+          <input type="text" placeholder="Your name" />
+        </label>
+        <label>
+          <div>Email</div>
+          <input type="email" aria-label="Email address" placeholder="your@email.com" />
+        </label>
+        <label>
+          <div>Message</div>
+          <textarea rows="4" placeholder="How can we help?"></textarea>
+        </label>
+        <button class="button" type="submit">Send</button>
+      </form>
+    </div>
+  </body>
+</html>

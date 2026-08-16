@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; } nav { display:flex; justify-content:space-between; padding:20px 40px; background:#0f172a; color:white; } nav a { color:white; margin:0 10px; text-decoration:none; } .container { max-width: 480px; margin: 60px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(15,23,42,.08); } form { display:grid; gap:12px; } input { padding:10px; border: 1px solid #cbd5e1; border-radius:8px; } .button { background:#06b6d4; color:black; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; } .error { color: #b91c1c; min-height: 20px; } </style>
+  </head>
+  <body>
+    <nav>
+      <div><strong>DemoStore</strong></div>
+      <div><a href="index.html">Home</a><a href="products.html">Products</a><a href="cart.html">Cart</a></div>
+    </nav>
+    <div class="container">
+      <h1>Login</h1>
+      <form id="login-form">
+        <label>
+          <div>Email</div>
+          <input id="email" type="email" placeholder="user@example.com" />
+        </label>
+        <label>
+          <div>Password</div>
+          <input id="password" type="password" placeholder="Password" />
+        </label>
+        <button id="login-btn" class="button" type="submit">Login</button>
+        <div id="message" class="error"></div>
+      </form>
+    </div>
+    <script>
+      const form = document.getElementById('login-form');
+      const message = document.getElementById('message');
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        if (!email || !password) {
+          message.textContent = 'Please enter both email and password.';
+          return;
+        }
+        if (email === 'invalid@example.com' || password === 'wrongpass') {
+          message.textContent = 'Invalid email or password. Please try again.';
+          return;
+        }
+        window.location.href = 'products.html';
+      });
+    </script>
+  </body>
+</html>

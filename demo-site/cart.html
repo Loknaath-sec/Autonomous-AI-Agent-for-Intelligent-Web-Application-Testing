@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <style>body { font-family: Arial, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; } nav { display:flex; justify-content:space-between; padding:20px 40px; background:#0f172a; color:white; } nav a { color:white; margin:0 10px; text-decoration:none; } .container { max-width: 900px; margin: 40px auto; background: white; border-radius: 12px; padding: 30px; } .item { display:flex; justify-content:space-between; border-bottom: 1px solid #e2e8f0; padding: 12px 0; } .button { background:#06b6d4; color:black; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; } </style>
+  </head>
+  <body>
+    <nav>
+      <div><strong>DemoStore</strong></div>
+      <div><a href="index.html">Home</a><a href="products.html">Products</a><a href="login.html">Login</a></div>
+    </nav>
+    <div class="container">
+      <h1>Cart</h1>
+      <div class="item"><span>Laptop Pro</span><span>$1299</span></div>
+      <p>Item count: <strong id="item-count">1</strong></p>
+      <button class="button" id="checkout">Checkout</button>
+    </div>
+    <script>
+      const count = localStorage.getItem('cart-count') || '1';
+      document.getElementById('item-count').textContent = count;
+      document.getElementById('checkout').addEventListener('click', () => {
+        window.location.href = 'checkout.html';
+      });
+    </script>
+  </body>
+</html>
