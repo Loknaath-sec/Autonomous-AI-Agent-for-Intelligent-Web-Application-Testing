@@ -1,87 +1,134 @@
+
 # Autonomous AI Agent for Intelligent Web Application Testing
 
-Autonomous AI Agent for Intelligent Web Application Testing is a research-oriented autonomous web testing platform that converts a natural-language testing instruction and target URL into a structured execution loop combining multi-agent planning, hybrid perception, Playwright automation, selector healing, independent verification, long-horizon exploration, memory, and evidence-based bug reporting.
+Modern, research-driven platform that converts a natural-language testing instruction and a target URL into a reproducible, evidence-backed test run. The system integrates multi-agent planning, hybrid perception, robust browser automation, selector self-healing, independent verification, and structured report generation.
 
-## Research problem
+Key outcomes: deterministic, instruction-specific reports; reproducible evidence artifacts; and a developer-friendly dashboard for experiments.
 
-Current autonomous web agents can navigate pages but often misinterpret outcomes, confuse automation failures with website defects, struggle with selector drift, and do not produce strong evidence-backed bug reports. This autonomous AI agent addresses that gap by combining multi-agent reasoning, hybrid perception, self-healing recovery, verification, and research instrumentation.
+---
 
-## Research gap and contributions
+## Highlights (what makes this project important)
 
-This project builds on the research direction in web agents and web probing but focuses on the practical testing problem: reducing false positives, managing long-horizon exploration, preserving execution memory, and generating reproducible evidence.
+- **Natural-language driven** testing: provide a plain-English instruction and receive a full test run and HTML report.
+- **Hybrid perception**: DOM + accessibility tree + textual analysis + browser metadata (noisy visual data optional).
+- **Self-healing selectors**: resilient automation when selectors drift or DOM changes.
+- **False-positive reduction**: independent verification layer distinguishes automation issues from real defects.
+- **Evidence-based reporting**: structured reproduction steps, HTTP logs, and saved artifacts.
+- **Reproducible experiments**: built-in experiment tracking and dashboards for research evaluation.
 
-Contributions include:
-- Multi-agent architecture for planning, perception, execution, verification, bug analysis, and reporting
-- Hybrid web perception combining DOM, accessibility, text, screenshots, and browser metadata
-- Self-healing selectors with structured confidence tracking
-- Independent verification to reduce false positives
-- Long-horizon exploration with bounded depth and step controls
-- Persistent memory for prior workflows and bug patterns
-- Research dashboards and experiment tracking for reproducible evaluation
+---
 
-## Architecture summary
+## Tech Stack (detailed)
 
-- Backend: FastAPI + SQLAlchemy + Playwright
-- Frontend: React + TypeScript + Vite + Tailwind CSS
-- Database: SQLite for development, PostgreSQL for production
-- AI provider: OpenAI-compatible abstraction with validation and safe parsing
-- Deployment: Docker and Render-friendly configuration
+- Backend: **Python**, **FastAPI**, **SQLAlchemy**, **Alembic** (migrations), **Playwright** (browser automation)
+- Frontend: **React**, **TypeScript**, **Vite**, **Tailwind CSS**, **Recharts** (visualizations)
+- Database: **SQLite** (local/dev), **PostgreSQL** (production-ready)
+- Testing: **pytest**, FastAPI TestClient, Playwright test helpers
+- LLM / AI: pluggable OpenAI-compatible provider abstraction (safe parsing + response validation)
+- Storage: local `./reports` for dev; pluggable object storage (S3) recommended for production
+- Infra / DevOps: **Docker**, **docker-compose**, **Render** config included
+- CI: simple pytest steps (adapt for GitHub Actions / GitLab CI)
 
-## Local setup
+---
 
-1. Create a Python environment.
-2. Install dependencies:
-   pip install -r requirements.txt
-3. Install the Playwright browser binaries:
-   python -m playwright install chromium
-4. Create a frontend environment:
-   cd frontend
-   npm install
-5. Copy environment variables:
-   cp .env.example .env
+## Repository layout (key files)
 
-### Python path for local development
+- `backend/` – FastAPI application, agents, report generator, DB models, and scripts
+- `frontend/` – React + TypeScript UI and dashboard
+- `backend/reports/` – persisted HTML reports and saved artifacts
+- `backend/scripts/` – dev utilities: `generate_samples.py`, `check_variation.py`
+- `backend/tests/` – unit and integration tests
+- `docker-compose.yml`, `Dockerfile`, `render.yaml` – deployment artifacts
 
-The backend package is under the `backend` folder. When running tests or local scripts from the repo root, set `PYTHONPATH=backend` or use the included pytest configuration.
+---
 
-## Running locally
+## Quickstart — Local Development (tested)
 
-Backend:
-- cd backend
-- uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+Prereqs: Python 3.10+, Node 18+, npm/yarn, Git
 
-Frontend:
-- cd frontend
-- npm run dev -- --host 0.0.0.0
+1. Create and activate Python venv
 
-Demo site:
-- cd demo-site
-- python -m http.server 8001
+```powershell
+python -m venv .venv
+.\.venv\Scripts\activate
+```
 
-## Research experiments
+2. Install backend deps
 
-The project includes baseline and proposed-mode comparison utilities, plus experiment tracking. Run:
-- pytest
-- python scripts/run_experiments.py
+```powershell
+pip install -r backend/requirements.txt
+```
+
+3. Install Playwright browsers
+
+```powershell
+python -m playwright install chromium
+```
+
+4. Start backend (development)
+
+```powershell
+cd backend
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8005
+```
+
+5. Start frontend (development)
+
+```powershell
+cd frontend
+npm install
+npm run dev
+# frontend dev server runs on http://localhost:5173
+```
+
+Notes:
+- The default `API_BASE_URL` used by the frontend should point to `http://localhost:8005` during development.
+- When running tests or scripts from the repo root, the backend package can be importable by adding `backend` to `PYTHONPATH` or running scripts from inside `backend/`.
+
+---
+
+## Commands (tests, samples, build)
+
+- Run backend tests: `python -m pytest backend/tests` 
+- Generate sample reports: `python backend/scripts/generate_samples.py` 
+- Quick variation check: `python backend/scripts/check_variation.py` 
+- Build frontend (production): `cd frontend && npm run build`
+
+---
 
 ## Deployment
 
-The repo includes a Dockerfile, docker-compose.yml, and render.yaml for Render deployment. Production uses PostgreSQL. Local development defaults to SQLite.
+- Docker-friendly: `docker-compose up --build` builds both backend and frontend; production uses `POSTGRES_URL` and external object storage.
+- Render: `render.yaml` included with recommended runtime settings. Validate environment variables for API keys and DB connection first.
 
-## Ethical considerations
+## Security & Ethics
 
-This autonomous testing system should only test websites the user owns or has explicit permission to test. The system blocks destructive actions, credential attacks, and unauthorized access paths.
+- Only run tests against targets you own or have permission to test. This tool should never be used for unauthorized scanning.
+- Sensitive credentials must be provided via secure environment variables and never committed to the repository.
 
-## Limitations
+---
 
-- Local storage is suitable for demos; production should use object storage or external report storage.
-- LLM reasoning remains dependent on API availability and model quality.
-- Browser automation can still be impacted by anti-bot protections and dynamic UI frameworks.
+## Contributing & Research
 
-## Future work
+Contributions are welcome. For research reproducibility:
 
-- Add richer visual QA and OCR pipelines
-- Add event streaming to the live execution UI
-- Expand experiment benchmarks and comparison baselines
-- Add more browser engines and accessibility scanning rules
+- Provide experiment config files and seed data.
+- Add deterministic seeds for any stochastic agents.
+- Commit datasets and experimental results when permitted.
+
+### Recommended next steps for researchers
+
+1. Swap the `AI provider` implementation to your preferred model and add test harnesses.
+2. Extend the `ReportGenerator` with richer evidence attachments and custom templates.
+3. Add CI steps to run experiments and collect metrics automatically.
+
+---
+
+## License
+
+This repository uses an open-source friendly license (see `LICENSE` file). If you plan to use this for anything other than research, review the license and update deployment configurations accordingly.
+
+---
+
+If you want, I can now: (1) generate an updated set of sample reports, (2) add CI configuration for tests, or (3) produce a short README summary for a project homepage. Which would you like next?
 
